@@ -1,6 +1,10 @@
 package com.abc;
 
-import org.junit.Ignore;
+import com.abc.account.Account;
+import com.abc.account.type.CheckingAccountType;
+import com.abc.account.type.MaxiSavingsAccountType;
+import com.abc.account.type.SavingsAccountType;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,8 +14,8 @@ public class CustomerTest {
     @Test //Test customer statement generation
     public void testApp(){
 
-        Account checkingAccount = new Account(Account.CHECKING);
-        Account savingsAccount = new Account(Account.SAVINGS);
+        Account checkingAccount = new Account(new CheckingAccountType());
+        Account savingsAccount = new Account(new SavingsAccountType());
 
         Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
 
@@ -35,23 +39,24 @@ public class CustomerTest {
 
     @Test
     public void testOneAccount(){
-        Customer oscar = new Customer("Oscar").openAccount(new Account(Account.SAVINGS));
+        Customer oscar = new Customer("Oscar").openAccount(new Account(new SavingsAccountType()));
         assertEquals(1, oscar.getNumberOfAccounts());
     }
 
     @Test
     public void testTwoAccount(){
         Customer oscar = new Customer("Oscar")
-                .openAccount(new Account(Account.SAVINGS));
-        oscar.openAccount(new Account(Account.CHECKING));
+                .openAccount(new Account(new SavingsAccountType()));
+        oscar.openAccount(new Account(new CheckingAccountType()));
         assertEquals(2, oscar.getNumberOfAccounts());
     }
 
-    @Ignore
+    @Test
     public void testThreeAcounts() {
         Customer oscar = new Customer("Oscar")
-                .openAccount(new Account(Account.SAVINGS));
-        oscar.openAccount(new Account(Account.CHECKING));
+                .openAccount(new Account(new SavingsAccountType()));
+        oscar.openAccount(new Account(new CheckingAccountType()));
+        oscar.openAccount(new Account(new MaxiSavingsAccountType()));
         assertEquals(3, oscar.getNumberOfAccounts());
     }
 }
