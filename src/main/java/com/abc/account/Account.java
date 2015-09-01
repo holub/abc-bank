@@ -33,6 +33,8 @@ public class Account {
 public void withdraw(BigDecimal amount) {
     if (amount.compareTo(BigDecimal.ZERO) <= 0) {
         throw new IllegalArgumentException("amount must be greater than zero");
+    } else if(sumTransactions().compareTo(amount) < 0) {
+        throw new IllegalArgumentException("insufficient founds");
     } else {
         transactions.add(new Transaction(amount.negate()));
     }
