@@ -1,6 +1,10 @@
 package com.abc.account.type;
 
+import com.abc.Transaction;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Collection;
 
 /**
  * Created by aholub on 8/31/15.
@@ -8,5 +12,5 @@ import java.math.BigDecimal;
 public interface AccountType {
 
     String getName();
-    BigDecimal interestEarned(BigDecimal amount);
+    BigDecimal interestEarned(Collection<Transaction> transactions, LocalDate toDate);
 }

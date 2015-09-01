@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by aholub on 8/31/15.
  */
-public class MaxiSavingsAccountType implements AccountType {
+public class MaxiSavingsAccountType extends AccountTypeBase {
     static final BigDecimal THRESHOLD1 = new BigDecimal("1000");
     static final BigDecimal INTEREST1 = new BigDecimal("0.02");
 
@@ -18,12 +18,12 @@ public class MaxiSavingsAccountType implements AccountType {
         return "Maxi Savings Account";
     }
 
-    public BigDecimal interestEarned(BigDecimal amount) {
+    public BigDecimal annualInterest(BigDecimal amount) {
         if (amount.compareTo(THRESHOLD1) <= 0)
             return amount.multiply(INTEREST1);
         else if (amount.compareTo(THRESHOLD2) <= 0)
-            return interestEarned(THRESHOLD1).add(amount.subtract(THRESHOLD1).multiply(INTEREST2));
+            return annualInterest(THRESHOLD1).add(amount.subtract(THRESHOLD1).multiply(INTEREST2));
         else
-            return interestEarned(THRESHOLD2).add(amount.subtract(THRESHOLD2).multiply(INTEREST_OTHER));
+            return annualInterest(THRESHOLD2).add(amount.subtract(THRESHOLD2).multiply(INTEREST_OTHER));
     }
 }

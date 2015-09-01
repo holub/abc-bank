@@ -1,12 +1,13 @@
 package com.abc;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Transaction {
     private final BigDecimal amount;
-    private final Date transactionDate;
+    private final LocalDateTime transactionDate;
 
     public Transaction(BigDecimal amount) {
         this.amount = amount;
@@ -17,7 +18,7 @@ public class Transaction {
         return amount;
     }
 
-    public Date getTransactionDate() {
+    public LocalDateTime getTransactionDate() {
         return transactionDate;
     }
 }

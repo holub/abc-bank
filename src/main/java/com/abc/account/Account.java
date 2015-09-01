@@ -4,8 +4,10 @@ import com.abc.Transaction;
 import com.abc.account.type.AccountType;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Account {
@@ -44,9 +46,8 @@ public void withdraw(BigDecimal amount) {
     }
 }
 
-    public BigDecimal interestEarned() {
-        BigDecimal amount = sumTransactions();
-        return accountType.interestEarned(amount);
+    public BigDecimal interestEarned(LocalDate toDate) {
+        return accountType.interestEarned(getTransactions(), toDate);
     }
 
     public BigDecimal sumTransactions() {

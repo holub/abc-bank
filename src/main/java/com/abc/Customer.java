@@ -3,6 +3,7 @@ package com.abc;
 import com.abc.account.Account;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,10 +34,10 @@ public class Customer {
         return accounts.size();
     }
 
-    public BigDecimal totalInterestEarned() {
+    public BigDecimal totalInterestEarned(LocalDate toDate) {
         BigDecimal total = BigDecimal.ZERO;
         for (Account a : accounts)
-            total = total.add(a.interestEarned());
+            total = total.add(a.interestEarned(toDate));
         return total;
     }
 }

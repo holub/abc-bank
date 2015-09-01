@@ -8,11 +8,17 @@ import com.abc.account.type.SavingsAccountType;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 
 import static com.abc.test.AbcAssert.assertBigDecimalEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BankTest {
+
+    private LocalDate yearLater() {
+        return LocalDate.now().plusDays(365);
+    }
 
     @Test
     public void customerSummary() {
@@ -33,7 +39,7 @@ public class BankTest {
 
         checkingAccount.deposit(new BigDecimal("100.0"));
 
-        assertBigDecimalEquals("0.1", bank.totalInterestPaid());
+        assertBigDecimalEquals("0.1", bank.totalInterestPaid(yearLater()));
     }
 
     @Test
@@ -44,7 +50,7 @@ public class BankTest {
 
         checkingAccount.deposit(new BigDecimal("1500.0"));
 
-        assertBigDecimalEquals("2.0", bank.totalInterestPaid());
+        assertBigDecimalEquals("2.0", bank.totalInterestPaid(yearLater()));
     }
 
     @Test
@@ -55,7 +61,7 @@ public class BankTest {
 
         checkingAccount.deposit(new BigDecimal("3000.0"));
 
-        assertBigDecimalEquals("170.0", bank.totalInterestPaid());
+        assertBigDecimalEquals("170.0", bank.totalInterestPaid(yearLater()));
     }
 
 }
