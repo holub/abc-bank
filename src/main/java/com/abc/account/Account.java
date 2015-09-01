@@ -3,6 +3,7 @@ package com.abc.account;
 import com.abc.Transaction;
 import com.abc.account.type.AccountType;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,35 +17,35 @@ public class Account {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public void deposit(double amount) {
-        if (amount <= 0) {
+    public void deposit(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
             transactions.add(new Transaction(amount));
         }
     }
 
-public void withdraw(double amount) {
-    if (amount <= 0) {
+public void withdraw(BigDecimal amount) {
+    if (amount.compareTo(BigDecimal.ZERO) <= 0) {
         throw new IllegalArgumentException("amount must be greater than zero");
     } else {
-        transactions.add(new Transaction(-amount));
+        transactions.add(new Transaction(amount.negate()));
     }
 }
 
-    public double interestEarned() {
-        double amount = sumTransactions();
+    public BigDecimal interestEarned() {
+        BigDecimal amount = sumTransactions();
         return accountType.interestEarned(amount);
     }
 
-    public double sumTransactions() {
+    public BigDecimal sumTransactions() {
        return checkIfTransactionsExist(true);
     }
 
-    private double checkIfTransactionsExist(boolean checkAll) {
-        double amount = 0.0;
+    private BigDecimal checkIfTransactionsExist(boolean checkAll) {
+        BigDecimal amount = BigDecimal.ZERO;
         for (Transaction t: transactions)
-            amount += t.amount;
+            amount = amount.add(t.amount);
         return amount;
     }
 

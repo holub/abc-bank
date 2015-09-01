@@ -7,10 +7,12 @@ import com.abc.account.type.SavingsAccountType;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
+import static com.abc.test.AbcAssert.assertBigDecimalEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BankTest {
-    private static final double DOUBLE_DELTA = 1e-15;
 
     @Test
     public void customerSummary() {
@@ -29,9 +31,9 @@ public class BankTest {
         Customer bill = new Customer("Bill").openAccount(checkingAccount);
         bank.addCustomer(bill);
 
-        checkingAccount.deposit(100.0);
+        checkingAccount.deposit(new BigDecimal("100.0"));
 
-        assertEquals(0.1, bank.totalInterestPaid(), DOUBLE_DELTA);
+        assertBigDecimalEquals("0.1", bank.totalInterestPaid());
     }
 
     @Test
@@ -40,9 +42,9 @@ public class BankTest {
         Account checkingAccount = new Account(new SavingsAccountType());
         bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
 
-        checkingAccount.deposit(1500.0);
+        checkingAccount.deposit(new BigDecimal("1500.0"));
 
-        assertEquals(2.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+        assertBigDecimalEquals("2.0", bank.totalInterestPaid());
     }
 
     @Test
@@ -51,9 +53,9 @@ public class BankTest {
         Account checkingAccount = new Account(new MaxiSavingsAccountType());
         bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
 
-        checkingAccount.deposit(3000.0);
+        checkingAccount.deposit(new BigDecimal("3000.0"));
 
-        assertEquals(170.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+        assertBigDecimalEquals("170.0", bank.totalInterestPaid());
     }
 
 }

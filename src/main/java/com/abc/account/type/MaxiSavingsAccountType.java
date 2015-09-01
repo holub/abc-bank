@@ -1,19 +1,29 @@
 package com.abc.account.type;
 
+import java.math.BigDecimal;
+
 /**
  * Created by aholub on 8/31/15.
  */
 public class MaxiSavingsAccountType implements AccountType {
+    static final BigDecimal THRESHOLD1 = new BigDecimal("1000");
+    static final BigDecimal INTEREST1 = new BigDecimal("0.02");
+
+    static final BigDecimal THRESHOLD2 = new BigDecimal("2000");
+    static final BigDecimal INTEREST2 = new BigDecimal("0.05");
+
+    static final BigDecimal INTEREST_OTHER = new BigDecimal("0.1");
 
     public String getName() {
         return "Maxi Savings Account";
     }
 
-    public double interestEarned(double amount) {
-        if (amount <= 1000)
-            return amount * 0.02;
-        if (amount <= 2000)
-            return 20 + (amount-1000) * 0.05;
-        return 70 + (amount-2000) * 0.1;
+    public BigDecimal interestEarned(BigDecimal amount) {
+        if (amount.compareTo(THRESHOLD1) <= 0)
+            return amount.multiply(INTEREST1);
+        else if (amount.compareTo(THRESHOLD2) <= 0)
+            return interestEarned(THRESHOLD1).add(amount.subtract(THRESHOLD1).multiply(INTEREST2));
+        else
+            return interestEarned(THRESHOLD2).add(amount.subtract(THRESHOLD2).multiply(INTEREST_OTHER));
     }
 }
