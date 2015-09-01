@@ -4,9 +4,8 @@ import com.abc.account.Account;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import static java.lang.Math.abs;
 
 public class Customer {
     private String name;
@@ -19,6 +18,10 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+    public List<Account> getAccounts() {
+        return Collections.unmodifiableList(accounts);
     }
 
     public Customer openAccount(Account account) {
@@ -35,35 +38,5 @@ public class Customer {
         for (Account a : accounts)
             total = total.add(a.interestEarned());
         return total;
-    }
-
-    public String getStatement() {
-        String statement = null;
-        statement = "Statement for " + name + "\n";
-        BigDecimal total = BigDecimal.ZERO;
-        for (Account a : accounts) {
-            statement += "\n" + statementForAccount(a) + "\n";
-            total = total.add(a.sumTransactions());
-        }
-        statement += "\nTotal In All Accounts " + toDollars(total);
-        return statement;
-    }
-
-    private String statementForAccount(Account a) {
-        //Translate to pretty account type
-        String s = a.getAccountName() + "\n";
-
-        //Now total up all the transactions
-        BigDecimal total = BigDecimal.ZERO;
-        for (Transaction t : a.getTransactions()) {
-            s += "  " + (t.getAmount().compareTo(BigDecimal.ZERO) < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.getAmount()) + "\n";
-            total = total.add(t.getAmount());
-        }
-        s += "Total " + toDollars(total);
-        return s;
-    }
-
-    private String toDollars(BigDecimal d){
-        return String.format("$%,.2f", abs(d.doubleValue()));
     }
 }
