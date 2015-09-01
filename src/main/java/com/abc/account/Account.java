@@ -5,16 +5,21 @@ import com.abc.account.type.AccountType;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Account {
 
     private final AccountType accountType;
-    public List<Transaction> transactions;
+    private final List<Transaction> transactions;
 
     public Account(AccountType accountType) {
         this.accountType = accountType;
         this.transactions = new ArrayList<Transaction>();
+    }
+
+    public List<Transaction> getTransactions() {
+        return Collections.unmodifiableList(transactions);
     }
 
     public void deposit(BigDecimal amount) {
@@ -41,7 +46,7 @@ public void withdraw(BigDecimal amount) {
     public BigDecimal sumTransactions() {
         BigDecimal amount = BigDecimal.ZERO;
         for (Transaction t: transactions)
-            amount = amount.add(t.amount);
+            amount = amount.add(t.getAmount());
         return amount;
     }
 
