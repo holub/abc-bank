@@ -34,14 +34,4 @@ public class Bank {
             total = total.add(c.totalInterestEarned());
         return total;
     }
-
-    public String getFirstCustomer() {
-        try {
-            customers = null;
-            return customers.get(0).getName();
-        } catch (Exception e){
-            e.printStackTrace();
-            return "Error";
-        }
-    }
 }
