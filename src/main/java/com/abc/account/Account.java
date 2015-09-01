@@ -39,10 +39,6 @@ public void withdraw(BigDecimal amount) {
     }
 
     public BigDecimal sumTransactions() {
-       return checkIfTransactionsExist(true);
-    }
-
-    private BigDecimal checkIfTransactionsExist(boolean checkAll) {
         BigDecimal amount = BigDecimal.ZERO;
         for (Transaction t: transactions)
             amount = amount.add(t.amount);
