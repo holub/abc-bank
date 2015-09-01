@@ -11,7 +11,7 @@ public class Transaction {
 
     public Transaction(BigDecimal amount) {
         this.amount = amount;
-        this.transactionDate = DateProvider.getInstance().now();
+        this.transactionDate = DateProvider.INSTANCE.now();
     }
 
 }
