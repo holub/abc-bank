@@ -4,7 +4,7 @@ import com.abc.Transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by aholub on 8/31/15.
@@ -12,5 +12,5 @@ import java.util.Collection;
 public interface AccountType {
 
     String getName();
-    BigDecimal interestEarned(Collection<Transaction> transactions, LocalDate toDate);
+    BigDecimal interestEarned(List<Transaction> transactions, LocalDate toDate);
 }

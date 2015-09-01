@@ -14,6 +14,12 @@ public class Transaction {
         this.transactionDate = DateProvider.INSTANCE.now();
     }
 
+    // XXX: for testing only!
+    protected Transaction(BigDecimal amount, LocalDateTime transactionDate) {
+       this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
